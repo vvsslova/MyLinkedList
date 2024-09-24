@@ -124,10 +124,8 @@ public class MyLinkedList<T> {
             for (int i = 0; i < index - 1; i++) {
                 node = node.getNext();
             }
-            Node<T> prevNode = node.getPrev();
-            Node<T> nextNode = node.getNext();
-            prevNode.next = nextNode;
-            nextNode.prev = prevNode;
+            node.prev.next = node.next;
+            node.next.prev=node.prev;
             size--;
         }
     }
