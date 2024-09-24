@@ -32,7 +32,6 @@ public class MyLinkedList<T> {
             first = newNode;
             newNode.setNext(oldFirstNode);
             oldFirstNode.setPrev(newNode);
-
         }
     }
 
@@ -58,6 +57,24 @@ public class MyLinkedList<T> {
     /**
      * Добавление элемента.
      *
+     * @param element добавляемый элемент.
+     * @param index   индекс, куда добавляется элемент.
+     */
+    private void addElement(T element, int index) {
+        final Node<T> newNode = new Node<>(element);
+        Node<T> node = first;
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        newNode.next = node;
+        newNode.prev = node.getPrev();
+        node.getPrev().next = newNode;
+        node.prev = newNode;
+    }
+
+    /**
+     * Добавление элемента.
+     *
      * @param index   индекс, куда добавляется элемент.
      * @param element добавляемый элемент.
      * @throws IndexOutOfBoundsException в случае, если индекс выходит за пределы размера списка.
@@ -70,16 +87,7 @@ public class MyLinkedList<T> {
         } else if (index == size) {
             addLast(element);
         } else {
-            final Node<T> newNode = new Node<>(element);
-            Node<T> node = first;
-            for (int i = 0; i < index; i++) {
-                node = node.getNext();
-            }
-            newNode.next = node;
-            newNode.prev = node.getPrev();
-            node.getPrev().next = newNode;
-            node.prev = newNode;
-
+            addElement(element, index);
         }
         size++;
     }
